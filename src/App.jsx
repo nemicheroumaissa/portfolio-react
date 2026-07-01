@@ -23,12 +23,12 @@ export default function App() {
 
   return (
     <div
+      className="pf-app"
       style={{
         backgroundColor: theme.background,
         color: theme.onSurface,
         fontFamily: "'Plus Jakarta Sans', sans-serif",
         minHeight: "100vh",
-        transition: "background-color 0.3s ease, color 0.3s ease",
       }}
     >
       <Navbar

@@ -17,6 +17,10 @@ a {
   color: inherit;
 }
 
+.pf-app {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
 /* ---------- Micro-interactions ---------- */
 .pf-nav-link {
   position: relative;
