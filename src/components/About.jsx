@@ -3,7 +3,7 @@ import SketchCard from "./SketchCard.jsx";
 import { FONTS } from "../models/theme.js";
 
 /**
- * VIEW — Section "Ma Story".
+ * VIEW — Section "My Story".
  */
 export default function About({ theme, darkMode, aboutRef }) {
   const t = theme;
@@ -27,27 +27,27 @@ export default function About({ theme, darkMode, aboutRef }) {
           </div>
 
           <h2 style={{ fontFamily: FONTS.display, fontSize: 32, fontWeight: 700, color: t.primary, marginBottom: 24 }}>
-            Ma Story
+            My Story
           </h2>
 
           <div style={{ display: "flex", flexDirection: "column", gap: 16, fontSize: 18, lineHeight: 1.6, color: t.onSurfaceVariant }}>
             <p>
-              Tout a commencé par une simple curiosité pour le développement web. Ce qui n'était au départ qu'une
-              envie de comprendre comment les sites prennent vie est rapidement devenu une véritable passion.
+              It all started with a simple curiosity about web development. What began as a desire to understand how
+              websites come to life quickly became a true passion.
             </p>
             <p>
-              Aujourd'hui, je conçois des expériences web où design et développement travaillent ensemble. J'aime
-              transformer une idée en un produit fonctionnel, en créant des interfaces modernes, intuitives et
-              agréables à utiliser, tout en construisant un backend fiable et performant.
+              Today, I design web experiences where design and development work hand in hand. I love turning an idea
+              into a functional product by creating modern, intuitive, and enjoyable interfaces, while building a
+              reliable and performant backend.
             </p>
             <p>
-              Chaque projet est pour moi une occasion d'apprendre, d'expérimenter et de faire grandir mes
-              compétences. J'accorde une grande importance aux détails, à l'esthétique et à la qualité du code, car
-              je crois que les meilleures expériences naissent de l'équilibre entre créativité et technique.
+              Every project is an opportunity for me to learn, experiment, and grow my skills. I place great importance
+              on details, aesthetics, and code quality, because I believe the best experiences come from the balance
+              between creativity and technical skill.
             </p>
             <p>
-              Mon parcours continue d'évoluer, un projet après l'autre, avec la même envie : créer des solutions
-              numériques utiles, élégantes et durables.
+              My journey continues to evolve, one project at a time, with the same drive: creating digital solutions
+              that are useful, elegant, and built to last.
             </p>
             <p style={{ fontFamily: FONTS.hand, fontSize: 24, color: t.secondary, paddingTop: 16 }}>— Roumaissa</p>
           </div>
