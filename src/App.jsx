@@ -1,10 +1,9 @@
+import { HashRouter, Routes, Route } from "react-router-dom";
+
 import Navbar from "./components/Navbar.jsx";
-import Hero from "./components/Hero.jsx";
-import About from "./components/About.jsx";
-import Skills from "./components/Skills.jsx";
-import Projects from "./components/Projects.jsx";
-import Contact from "./components/Contact.jsx";
 import Footer from "./components/Footer.jsx";
+import Home from "./pages/Home.jsx";
+import CaseStudy from "./pages/CaseStudy.jsx";
 
 import { useTheme } from "./controllers/useTheme.js";
 import { useScrollNav } from "./controllers/useScrollNav.js";
@@ -12,10 +11,11 @@ import { useMobileMenu } from "./controllers/useMobileMenu.js";
 import { useActiveSection } from "./controllers/useActiveSection.js";
 
 /**
- * APP — point d'assemblage. Récupère l'état depuis les Controllers
- * et le distribue aux Views. Aucune logique métier ici.
+ * AppShell — contient toute la logique et le rendu. Doit être rendu
+ * À L'INTÉRIEUR de <HashRouter> car useActiveSection (et Navbar) utilisent
+ * useLocation/useNavigate, qui nécessitent le contexte du Router.
  */
-export default function App() {
+function AppShell() {
   const { darkMode, theme, toggleTheme } = useTheme();
   const { refs, scrollTo } = useScrollNav();
   const mobileMenu = useMobileMenu();
@@ -41,14 +41,32 @@ export default function App() {
       />
 
       <main>
-        <Hero theme={theme} heroRef={refs.hero} scrollTo={scrollTo} />
-        <About theme={theme} darkMode={darkMode} aboutRef={refs.about} />
-        <Skills theme={theme} darkMode={darkMode} skillsRef={refs.skills} />
-        <Projects theme={theme} darkMode={darkMode} projectsRef={refs.projects} />
-        <Contact theme={theme} darkMode={darkMode} contactRef={refs.contact} />
+        <Routes>
+          <Route path="/" element={<Home theme={theme} darkMode={darkMode} refs={refs} scrollTo={scrollTo} />} />
+          <Route path="/projects/:slug" element={<CaseStudy theme={theme} darkMode={darkMode} />} />
+        </Routes>
       </main>
 
       <Footer theme={theme} />
     </div>
+  );
+}
+
+/**
+ * APP — point d'assemblage. Monte le Router puis l'AppShell.
+ *
+ * Deux routes :
+ *  - "/"                    → page d'accueil (scroll sections)
+ *  - "/projects/:slug"      → étude de cas détaillée d'un projet
+ *
+ * HashRouter est utilisé (URLs en /#/...) car le site est déployé sur
+ * GitHub Pages sans configuration de fallback SPA : ça évite les 404
+ * au rechargement d'une page de projet.
+ */
+export default function App() {
+  return (
+    <HashRouter>
+      <AppShell />
+    </HashRouter>
   );
 }

@@ -1,5 +1,6 @@
 import { Mail, Send } from "lucide-react";
 import { FONTS } from "../models/theme.js";
+import { UI } from "../models/ui.js";
 import { useContactForm } from "../controllers/useContactForm.js";
 import SocialLinksBar from "./SocialLinksBar.jsx";
 
@@ -136,7 +137,7 @@ export default function Contact({ theme, darkMode, contactRef }) {
 
           {status === "error" && (
             <p style={{ color: "#c62828", fontSize: 14, textAlign: "center", margin: 0 }}>
-              Merci de remplir tous les champs avant d'envoyer.
+              {UI.fillAllFields}
             </p>
           )}
 

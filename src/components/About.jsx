@@ -1,9 +1,14 @@
-import { StickyNote } from "lucide-react";
+import { StickyNote, GraduationCap } from "lucide-react";
 import SketchCard from "./SketchCard.jsx";
 import { FONTS } from "../models/theme.js";
 
+const EDUCATION = {
+  degree: "Bachelor's Degree in Information Systems and Software Engineering",
+  school: "University of Sciences and Technology of Oran Mohamed Boudiaf (USTO-MB)",
+};
+
 /**
- * VIEW — Section "My Story".
+ * VIEW — "My Story" section with education.
  */
 export default function About({ theme, darkMode, aboutRef }) {
   const t = theme;
@@ -49,7 +54,27 @@ export default function About({ theme, darkMode, aboutRef }) {
               My journey continues to evolve, one project at a time, with the same drive: creating digital solutions
               that are useful, elegant, and built to last.
             </p>
-            <p style={{ fontFamily: FONTS.hand, fontSize: 24, color: t.secondary, paddingTop: 16 }}>— Roumaissa</p>
+
+            <div
+              style={{
+                marginTop: 8,
+                padding: "20px 24px",
+                borderRadius: 16,
+                backgroundColor: darkMode ? "rgba(255,255,255,0.04)" : t.surfaceContainerLow,
+                border: `1px solid ${t.outlineVariant}44`,
+              }}
+            >
+              <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 12 }}>
+                <GraduationCap size={22} color={t.secondary} />
+                <h3 style={{ fontFamily: FONTS.display, fontSize: 20, fontWeight: 700, color: t.primary, margin: 0 }}>
+                  Education
+                </h3>
+              </div>
+              <p style={{ margin: "0 0 6px", fontWeight: 600, color: t.onSurface }}>{EDUCATION.degree}</p>
+              <p style={{ margin: 0, fontSize: 16, color: t.onSurfaceVariant }}>{EDUCATION.school}</p>
+            </div>
+
+            <p style={{ fontFamily: FONTS.hand, fontSize: 24, color: t.secondary, paddingTop: 8 }}>— Roumaissa</p>
           </div>
         </SketchCard>
       </div>

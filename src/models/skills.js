@@ -12,11 +12,22 @@ import {
   PenTool,
   GitBranch,
   Github,
+  Atom,
+  Server,
+  Flame,
+  Leaf,
+  Container,
+  Plug,
+  Smartphone,
+  Zap,
+  Package,
+  Send,
+  Code,
 } from "lucide-react";
 
 /**
- * MODEL — Compétences techniques
- * `color` référence une clé du thème ("primary" | "secondary" | "tertiary").
+ * MODEL — Technical skills
+ * `color` references a theme key: "primary" | "secondary" | "tertiary"
  */
 export const SKILLS = [
   { name: "C", tag: "Foundation Roots", icon: Cpu, color: "primary" },
@@ -27,9 +38,20 @@ export const SKILLS = [
   { name: "CSS", tag: "Petal Styling", icon: Palette, color: "tertiary" },
   { name: "Python", tag: "Green Thumb", icon: Terminal, color: "primary" },
   { name: "Node.js", tag: "Fast Sprout", icon: Network, color: "secondary" },
-  { name: "Tailwind CSS", tag: "Effortless Growth", icon: Wind, color: "tertiary" },
-  { name: "SQL", tag: "Deep Roots", icon: Database, color: "primary" },
-  { name: "Figma", tag: "Design Sketchbook", icon: PenTool, color: "secondary" },
-  { name: "Git", tag: "Version Control", icon: GitBranch, color: "tertiary" },
-  { name: "GitHub", tag: "Branch & Bloom", icon: Github, color: "primary" },
+  { name: "React", tag: "Interactive Bloom", icon: Atom, color: "tertiary" },
+  { name: "Express.js", tag: "Server Roots", icon: Server, color: "primary" },
+  { name: "Tailwind CSS", tag: "Effortless Growth", icon: Wind, color: "secondary" },
+  { name: "SQL", tag: "Deep Roots", icon: Database, color: "tertiary" },
+  { name: "MongoDB", tag: "Flexible Soil", icon: Leaf, color: "primary" },
+  { name: "Firebase", tag: "Cloud Seeds", icon: Flame, color: "secondary" },
+  { name: "Docker", tag: "Contained Growth", icon: Container, color: "tertiary" },
+  { name: "REST API", tag: "Connected Vines", icon: Plug, color: "primary" },
+  { name: "Responsive Design", tag: "Adaptive Layout", icon: Smartphone, color: "secondary" },
+  { name: "Vite", tag: "Fast Harvest", icon: Zap, color: "tertiary" },
+  { name: "npm", tag: "Package Garden", icon: Package, color: "primary" },
+  { name: "Postman", tag: "API Explorer", icon: Send, color: "secondary" },
+  { name: "VS Code", tag: "Daily Toolkit", icon: Code, color: "tertiary" },
+  { name: "Figma", tag: "Design Sketchbook", icon: PenTool, color: "primary" },
+  { name: "Git", tag: "Version Control", icon: GitBranch, color: "secondary" },
+  { name: "GitHub", tag: "Branch & Bloom", icon: Github, color: "tertiary" },
 ];

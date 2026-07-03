@@ -1,5 +1,7 @@
 import { Sun, Moon, Menu, X } from "lucide-react";
+import { useLocation, useNavigate } from "react-router-dom";
 import { NAV_LINKS } from "../models/navLinks.js";
+import { UI } from "../models/ui.js";
 import { FONTS } from "../models/theme.js";
 
 function navLinkStyle(link, activeSection, t) {
@@ -18,6 +20,18 @@ function navLinkStyle(link, activeSection, t) {
  */
 export default function Navbar({ theme, darkMode, toggleTheme, scrollTo, mobileMenu, activeSection }) {
   const t = theme;
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  // Depuis une page d'étude de cas, un clic sur un lien doit d'abord
+  // ramener à l'accueil avant de scroller vers la section visée.
+  const goToSection = (key) => {
+    if (location.pathname !== "/") {
+      navigate("/", { state: { scrollTo: key } });
+    } else {
+      scrollTo(key);
+    }
+  };
 
   return (
     <header
@@ -41,7 +55,17 @@ export default function Navbar({ theme, darkMode, toggleTheme, scrollTo, mobileM
           height: "80px",
         }}
       >
-        <div style={{ fontFamily: FONTS.display, fontSize: 28, fontWeight: 800, color: t.primary, letterSpacing: "-0.02em" }}>
+        <div
+          onClick={() => (location.pathname !== "/" ? navigate("/") : scrollTo("hero"))}
+          style={{
+            fontFamily: FONTS.display,
+            fontSize: 28,
+            fontWeight: 800,
+            color: t.primary,
+            letterSpacing: "-0.02em",
+            cursor: "pointer",
+          }}
+        >
           Roumaissa<span style={{ color: t.tertiary }}>.</span>
         </div>
 
@@ -54,7 +78,7 @@ export default function Navbar({ theme, darkMode, toggleTheme, scrollTo, mobileM
                 href={`#${link.ref}`}
                 onClick={(e) => {
                   e.preventDefault();
-                  scrollTo(link.ref);
+                  goToSection(link.ref);
                 }}
                 className="pf-nav-link"
                 style={navLinkStyle(link, activeSection, t)}
@@ -75,7 +99,7 @@ export default function Navbar({ theme, darkMode, toggleTheme, scrollTo, mobileM
           <button
             onClick={toggleTheme}
             className="pf-btn"
-            aria-label="Basculer le thème sombre"
+            aria-label={UI.toggleDarkMode}
             style={{
               padding: 8,
               borderRadius: "9999px",
@@ -93,7 +117,7 @@ export default function Navbar({ theme, darkMode, toggleTheme, scrollTo, mobileM
           <button
             onClick={mobileMenu.toggle}
             className="pf-btn pf-nav-burger"
-            aria-label="Ouvrir le menu"
+            aria-label={UI.openMenu}
             style={{
               padding: 8,
               borderRadius: "9999px",
@@ -129,7 +153,7 @@ export default function Navbar({ theme, darkMode, toggleTheme, scrollTo, mobileM
               onClick={(e) => {
                 e.preventDefault();
                 mobileMenu.close();
-                scrollTo(link.ref);
+                goToSection(link.ref);
               }}
               style={{
                 color: isActive ? t.primary : t.onSurfaceVariant,

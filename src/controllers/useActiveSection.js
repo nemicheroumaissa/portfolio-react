@@ -1,12 +1,16 @@
 import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 import { NAV_LINKS } from "../models/navLinks.js";
 
 /**
  * CONTROLLER — suit la section visible au scroll pour mettre à jour
  * l'état actif de la navbar (au lieu d'un lien figé sur "about").
+ * Se ré-abonne à chaque changement de route : les sections n'existent
+ * dans le DOM que sur la page d'accueil ("/").
  */
 export function useActiveSection() {
   const [activeSection, setActiveSection] = useState("hero");
+  const location = useLocation();
 
   useEffect(() => {
     const sections = NAV_LINKS.map((link) => document.getElementById(link.ref)).filter(Boolean);
@@ -27,7 +31,7 @@ export function useActiveSection() {
 
     sections.forEach((el) => observer.observe(el));
     return () => observer.disconnect();
-  }, []);
+  }, [location.pathname]);
 
   return activeSection;
 }

@@ -1,102 +1,81 @@
-# Portfolio Roumaissa — React (Vite)
+# Roumaissa Portfolio — React (Vite)
 
-Portfolio converti depuis le HTML/Tailwind original, structuré en **MVC** :
+A garden-themed developer portfolio built with React and Vite.
 
-```
-portfolio-react/
-├── index.html
-├── package.json
-├── vite.config.js
-└── src/
-    ├── main.jsx              # point d'entrée React
-    ├── App.jsx                # assemble les Views avec les Controllers
-    ├── models/                 # M — données (couleurs, skills, projets, liens)
-    │   ├── theme.js
-    │   ├── navLinks.js
-    │   ├── skills.js
-    │   ├── projects.js
-    │   └── socialLinks.js
-    ├── controllers/             # C — état et logique (hooks React)
-    │   ├── useTheme.js          # mode clair/sombre
-    │   ├── useScrollNav.js      # scroll fluide vers les sections
-    │   └── useMobileMenu.js     # menu hamburger mobile
-    ├── components/               # V — composants visuels (UI pure)
-    │   ├── Navbar.jsx
-    │   ├── Hero.jsx
-    │   ├── About.jsx
-    │   ├── Skills.jsx
-    │   ├── Projects.jsx
-    │   ├── Contact.jsx
-    │   ├── Footer.jsx
-    │   └── SketchCard.jsx
-    └── styles/
-        └── global.css          # animations + media queries responsive
+## Run locally
+
+```bash
+npm install
+npm run dev
 ```
 
-## Comment l'exécuter en local
+Open **http://localhost:5173** in your browser.
 
-Il te faut **Node.js** installé (version 18 ou plus — télécharge-le sur [nodejs.org](https://nodejs.org) si besoin).
-
-1. **Dézippe** ce dossier, puis ouvre un terminal dedans (`cd portfolio-react`).
-2. **Installe les dépendances** :
-   ```bash
-   npm install
-   ```
-3. **Lance le serveur de développement** :
-   ```bash
-   npm run dev
-   ```
-4. Ouvre l'URL affichée dans le terminal (en général **http://localhost:5173**) dans ton navigateur.
-
-Le site se recharge automatiquement à chaque modification d'un fichier.
-
-## Construire la version de production
+## Build for production
 
 ```bash
 npm run build
-```
-
-Cela génère un dossier `dist/` prêt à être déployé (Vercel, Netlify, GitHub Pages, etc.).
-Pour prévisualiser ce build localement :
-
-```bash
 npm run preview
 ```
 
-## Modifier le contenu
+## Project structure
 
-Tu n'as **pas besoin de toucher aux composants** pour changer le contenu — tout est dans `src/models/` :
+```
+src/
+├── models/
+│   ├── projects/          ← all project data (one file per project)
+│   │   ├── index.js       ← list of projects + helpers
+│   │   ├── constants.js   ← PROJECTS_INITIAL_COUNT (default: 3)
+│   │   ├── projectTemplate.js
+│   │   └── ry-performance.js
+│   ├── skills.js
+│   ├── navLinks.js
+│   ├── socialLinks.js
+│   ├── theme.js
+│   └── ui.js              ← shared English UI strings
+├── pages/
+│   ├── Home.jsx
+│   └── CaseStudy.jsx
+└── components/
+```
 
-- **Compétences** → `src/models/skills.js`
-- **Projets** → `src/models/projects.js` (voir section ci-dessous)
-- **Liens sociaux** → `src/models/socialLinks.js` (GitHub, LinkedIn, Instagram, TikTok)
-- **Couleurs (clair/sombre)** → `src/models/theme.js`
+## Managing projects
 
-## Gérer les projets (photo, démo, en ajouter)
+### Add a new project
 
-Tout se passe dans **`src/models/projects.js`**.
+1. Copy `src/models/projects/projectTemplate.js` → `src/models/projects/my-project.js`
+2. Fill in the fields (see comments in the template)
+3. Import it in `src/models/projects/index.js` and add it to the `PROJECTS` array
 
-### Ajouter une photo
+### Edit an existing project
 
-1. Place ton image dans `public/projects/` (ex. `ry-performance.jpg`)
-2. Dans le projet, mets : `img: "/projects/ry-performance.jpg"`
+Open its file (e.g. `src/models/projects/ry-performance.js`) and update any field.
 
-Tu peux aussi utiliser une URL externe : `img: "https://..."`
+### Change images
 
-### Ajouter une démo en ligne
+| What | Where |
+|------|--------|
+| Card cover | `img` in the project file |
+| Case study screenshots | `caseStudy.gallery` |
+| Mockups | `caseStudy.mockups[].img` |
 
-1. Déploie ton projet (Vercel, Netlify, Render…)
-2. Colle l'URL dans `demoUrl` : `demoUrl: "https://mon-site.vercel.app"`
-3. Le bouton **Démo** apparaît automatiquement
+Place local images in `public/projects/` and reference them as `/projects/filename.jpg`.
 
-### Ajouter un nouveau projet
+### Add a live demo
 
-Copie le bloc exemple en bas de `projects.js`, décommente-le, remplis les champs, et sauvegarde.
+Set `demoUrl: "https://your-app.vercel.app"` — the **Demo** button appears automatically.
 
-### Affichage « Afficher plus »
+### Case study page
 
-Les **3 premiers** projets s'affichent par défaut. Au-delà, un bouton **Afficher plus** apparaît. Tu peux changer ce nombre via `PROJECTS_INITIAL_COUNT` dans le même fichier.
+Fill in the `caseStudy` object in the project file. All fields are optional. The page is available at `/#/projects/your-slug`.
 
-### Modifier les liens sociaux (Contact)
+### Show more button
 
-Dans `src/models/socialLinks.js`, mets `enabled: true` et ton vrai `href` pour GitHub, LinkedIn, Instagram et TikTok.
+The first **3** projects are shown by default. Change `PROJECTS_INITIAL_COUNT` in `src/models/projects/constants.js`.
+
+## Other content
+
+- **Skills** → `src/models/skills.js`
+- **Social links** → `src/models/socialLinks.js`
+- **Colors (light/dark)** → `src/models/theme.js`
+- **Navigation labels** → `src/models/navLinks.js`

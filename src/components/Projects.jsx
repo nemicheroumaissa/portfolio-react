@@ -1,6 +1,8 @@
 import { useState } from "react";
-import { ExternalLink, Github, Sprout, ChevronDown, ChevronUp } from "lucide-react";
-import { PROJECTS, PROJECTS_INITIAL_COUNT } from "../models/projects.js";
+import { Link } from "react-router-dom";
+import { ExternalLink, Github, Sprout, ChevronDown, ChevronUp, FileText } from "lucide-react";
+import { PROJECTS, PROJECTS_INITIAL_COUNT } from "../models/projects/index.js";
+import { UI } from "../models/ui.js";
 import { FONTS } from "../models/theme.js";
 
 function ProjectCard({ project, theme, darkMode }) {
@@ -37,7 +39,7 @@ function ProjectCard({ project, theme, darkMode }) {
             }}
           >
             <Sprout size={48} color={t.tertiary} />
-            <span style={{ fontSize: 12, color: t.onSurfaceVariant, fontWeight: 600 }}>Aperçu à venir</span>
+            <span style={{ fontSize: 12, color: t.onSurfaceVariant, fontWeight: 600 }}>{UI.previewComingSoon}</span>
           </div>
         )}
         {project.featured && (
@@ -85,7 +87,7 @@ function ProjectCard({ project, theme, darkMode }) {
                 fontFamily: FONTS.body,
               }}
             >
-              Description détaillée {showDetails ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
+              {UI.detailedDescription} {showDetails ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
             </button>
             {showDetails && (
               <p
@@ -124,6 +126,26 @@ function ProjectCard({ project, theme, darkMode }) {
         </div>
 
         <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
+          {project.slug && (
+            <Link
+              to={`/projects/${project.slug}`}
+              className="pf-btn"
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: 6,
+                color: t.onSecondary,
+                backgroundColor: t.secondary,
+                padding: "8px 16px",
+                borderRadius: "9999px",
+                fontSize: 14,
+                fontWeight: 700,
+                textDecoration: "none",
+              }}
+            >
+              {UI.caseStudy} <FileText size={14} />
+            </Link>
+          )}
           {project.demoUrl ? (
             <a
               href={project.demoUrl}
@@ -143,11 +165,11 @@ function ProjectCard({ project, theme, darkMode }) {
                 textDecoration: "none",
               }}
             >
-              Démo <ExternalLink size={14} />
+              {UI.demo} <ExternalLink size={14} />
             </a>
           ) : (
             <span
-              title="Ajoute demoUrl dans src/models/projects.js pour activer le lien"
+              title="Add demoUrl in src/models/projects/your-project.js to enable the link"
               style={{
                 display: "inline-flex",
                 alignItems: "center",
@@ -161,7 +183,7 @@ function ProjectCard({ project, theme, darkMode }) {
                 opacity: 0.7,
               }}
             >
-              Démo bientôt disponible
+              {UI.demoComingSoon}
             </span>
           )}
           {project.githubUrl && (
@@ -192,9 +214,7 @@ function ProjectCard({ project, theme, darkMode }) {
   );
 }
 
-/**
- * VIEW — Grille des projets (3 visibles, puis « Afficher plus »).
- */
+/** VIEW — Project grid (3 visible, then "Show more"). */
 export default function Projects({ theme, darkMode, projectsRef }) {
   const t = theme;
   const [showAll, setShowAll] = useState(false);
@@ -213,7 +233,7 @@ export default function Projects({ theme, darkMode, projectsRef }) {
 
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: 40 }}>
           {visibleProjects.map((project) => (
-            <ProjectCard key={project.title} project={project} theme={theme} darkMode={darkMode} />
+            <ProjectCard key={project.slug || project.title} project={project} theme={theme} darkMode={darkMode} />
           ))}
         </div>
 
@@ -240,11 +260,11 @@ export default function Projects({ theme, darkMode, projectsRef }) {
             >
               {showAll ? (
                 <>
-                  Afficher moins <ChevronUp size={20} />
+                  {UI.showLess} <ChevronUp size={20} />
                 </>
               ) : (
                 <>
-                  Afficher plus ({hiddenCount} autre{hiddenCount > 1 ? "s" : ""}) <ChevronDown size={20} />
+                  {UI.showMore(hiddenCount)} <ChevronDown size={20} />
                 </>
               )}
             </button>

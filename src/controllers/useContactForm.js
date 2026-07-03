@@ -22,9 +22,9 @@ export function useContactForm() {
       return;
     }
 
-    const subject = encodeURIComponent(`Portfolio — message de ${form.name.trim()}`);
+    const subject = encodeURIComponent(`Portfolio — message from ${form.name.trim()}`);
     const body = encodeURIComponent(
-      `${form.message.trim()}\n\n---\nNom : ${form.name.trim()}\nEmail : ${form.email.trim()}`
+      `${form.message.trim()}\n\n---\nName: ${form.name.trim()}\nEmail: ${form.email.trim()}`
     );
 
     window.location.href = `mailto:${RECIPIENT}?subject=${subject}&body=${body}`;
