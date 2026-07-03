@@ -1,5 +1,6 @@
 {
   "name": "roumaissa-portfolio",
+  "description": "Modern personal portfolio built with React and Vite — projects, case studies, skills, and contact.",
   "private": true,
   "version": "1.0.0",
   "homepage": "https://nemicheroumaissa.github.io/portfolio-react",
